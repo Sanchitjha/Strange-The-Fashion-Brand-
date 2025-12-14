@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Custom Tailwind Components */
+@layer components {
+  .btn-primary {
+    @apply px-6 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-2 border-2 border-black text-black rounded hover:bg-black hover:text-white transition-all;
+  }
+
+  .btn-small {
+    @apply px-4 py-1 text-sm bg-black text-white rounded hover:bg-gray-800 transition-colors;
+  }
+
+  .container-main {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply text-3xl sm:text-4xl font-bold text-center mb-8;
+  }
+
+  .product-card {
+    @apply bg-white rounded-lg shadow hover:shadow-lg transition-all overflow-hidden group;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-black;
+  }
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  .section-title {
+    @apply text-2xl;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
