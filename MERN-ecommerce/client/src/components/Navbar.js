@@ -8,11 +8,17 @@ const Navbar = () => {
 
   return (
     <header className="ul-header">
-      {/* Header Top */}
+      {/* Header Top - Enhanced Marquee */}
       <div className="ul-header-top">
-        <p className="ul-header-top-slider-item">
-          <i className="flaticon-sparkle"></i> limited time offer
-        </p>
+        <div className="ul-header-top-slider">
+          <div className="marquee-content">
+            {[...Array(10)].map((_, i) => (
+              <span key={i} className="ul-header-top-slider-item">
+                <i className="flaticon-sparkle">✨</i> limited time offer
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Header Bottom */}
