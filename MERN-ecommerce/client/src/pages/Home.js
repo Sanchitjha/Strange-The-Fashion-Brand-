@@ -11,25 +11,28 @@ const Home = () => {
     {
       id: 1,
       image: "/images/banner-slide-1.jpg",
+      sideImage: "/images/banner-img-slide-1.jpg",
       subTitle: "Perfect for Summer Evenings",
       title: "Casual and Stylish for All Seasons",
-      price: "$129",
+      price: "129",
       className: "ul-banner-slide"
     },
     {
       id: 2,
       image: "/images/banner-slide-2.jpg",
-      subTitle: "Perfect for Summer Evenings",
-      title: "Casual and Stylish for All Seasons",
-      price: "$129",
+      sideImage: "/images/banner-img-slide-2.jpg",
+      subTitle: "Trendy Collection 2025",
+      title: "Discover Your Perfect Style Today",
+      price: "99",
       className: "ul-banner-slide ul-banner-slide--2"
     },
     {
       id: 3,
       image: "/images/banner-slide-3.jpg",
-      subTitle: "Perfect for Summer Evenings",
-      title: "Casual and Stylish for All Seasons",
-      price: "$129",
+      sideImage: "/images/banner-img-slide-3.jpg",
+      subTitle: "Exclusive Designer Wear",
+      title: "Luxury Fashion at Its Best",
+      price: "199",
       className: "ul-banner-slide ul-banner-slide--3"
     }
   ];
@@ -97,29 +100,29 @@ const Home = () => {
 
   return (
     <main>
-      {/* Banner Section */}
+      {/* BANNER SECTION - Dual Slider System */}
       <div className="overflow-hidden">
         <div className="ul-container">
           <section className="ul-banner">
             <div className="ul-banner-slider-wrapper">
               <div className="ul-banner-slider">
-                <div className="swiper-wrapper">
+                <div className="ul-banner-slides">
                   {bannerSlides.map((slide, index) => (
                     <div 
                       key={slide.id}
-                      className={`${slide.className} ${index === currentSlide ? 'block' : 'hidden'}`}
+                      className={`${slide.className} ${index === currentSlide ? 'active' : ''}`}
                     >
                       <div className="ul-banner-slide-img">
-                        <img src={slide.image} alt="Banner" />
+                        <img src={slide.image} alt="Banner Image" />
                       </div>
                       <div className="ul-banner-slide-txt">
                         <span className="ul-banner-slide-sub-title">{slide.subTitle}</span>
                         <h1 className="ul-banner-slide-title">{slide.title}</h1>
                         <p className="ul-banner-slide-price">
-                          Starting From <span className="price">{slide.price}</span>
+                          Starting From <span className="price">${slide.price}</span>
                         </p>
                         <a href="/shop" className="ul-btn">
-                          SHOP NOW <i className="flaticon-up-right-arrow"></i>
+                          SHOP NOW <i className="flaticon-up-right-arrow">↗</i>
                         </a>
                       </div>
                     </div>
@@ -130,22 +133,26 @@ const Home = () => {
                 <div className="ul-banner-slider-nav-wrapper">
                   <div className="ul-banner-slider-nav">
                     <button className="prev" onClick={prevSlide}>
-                      <span className="icon"><i className="flaticon-down"></i></span>
+                      <span className="icon"><i className="flaticon-down">⬇</i></span>
                     </button>
                     <button className="next" onClick={nextSlide}>
-                      <span className="icon"><i className="flaticon-down"></i></span>
+                      <span className="icon"><i className="flaticon-down">⬇</i></span>
                     </button>
                   </div>
                 </div>
               </div>
             </div>
 
+            {/* Right Side Image Slider */}
             <div className="ul-banner-img-slider-wrapper">
               <div className="ul-banner-img-slider">
-                <img 
-                  src={imageSlides[currentSlide]} 
-                  alt="Banner" 
-                />
+                <div className="banner-img-slides">
+                  {bannerSlides.map((slide, index) => (
+                    <div key={`side-${slide.id}`} className={`banner-img-slide ${index === currentSlide ? 'active' : ''}`}>
+                      <img src={slide.sideImage} alt="Banner Side Image" />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
