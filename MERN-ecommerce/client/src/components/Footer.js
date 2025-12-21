@@ -1,111 +1,96 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiFacebook, FiInstagram, FiTwitter, FiLinkedin } from 'react-icons/fi';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-black text-white mt-16">
-      <div className="container-main py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Brand */}
-          <div>
-            <h3 className="text-xl font-bold mb-4">Fashion Brand</h3>
-            <p className="text-gray-400">
-              Discover the latest fashion trends and elevate your style with our exclusive collections.
-            </p>
-          </div>
+    <footer className="ul-footer">
+      <div className="ul-container">
+        <div className="ul-footer-top">
+          <div className="row">
+            <div className="col-lg-3 col-md-6">
+              <div className="ul-footer-widget">
+                <div className="ul-footer-logo">
+                  <img 
+                    src="https://via.placeholder.com/150x50/EF2853/ffffff?text=GLAMER" 
+                    alt="logo"
+                  />
+                </div>
+                <p>Your one-stop destination for fashion and style. Discover the latest trends and exclusive collections.</p>
+                <div className="ul-footer-social">
+                  <a href="#"><i className="flaticon-facebook">f</i></a>
+                  <a href="#"><i className="flaticon-twitter">t</i></a>
+                  <a href="#"><i className="flaticon-instagram">i</i></a>
+                  <a href="#"><i className="flaticon-youtube">y</i></a>
+                </div>
+              </div>
+            </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-bold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <Link to="/" className="hover:text-white transition">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop" className="hover:text-white transition">
-                  Shop
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="hover:text-white transition">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-white transition">
-                  Blog
-                </Link>
-              </li>
-            </ul>
-          </div>
+            <div className="col-lg-2 col-md-6">
+              <div className="ul-footer-widget">
+                <h3 className="ul-footer-widget-title">Quick Links</h3>
+                <ul className="ul-footer-links">
+                  <li><Link to="/about">About Us</Link></li>
+                  <li><Link to="/shop">Shop</Link></li>
+                  <li><Link to="/blog">Blog</Link></li>
+                  <li><Link to="/contact">Contact</Link></li>
+                  <li><Link to="/faq">FAQ</Link></li>
+                </ul>
+              </div>
+            </div>
 
-          {/* Support */}
-          <div>
-            <h4 className="font-bold mb-4">Support</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <Link to="/contact" className="hover:text-white transition">
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition">
-                  Shipping Info
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition">
-                  Returns
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition">
-                  FAQ
-                </a>
-              </li>
-            </ul>
-          </div>
+            <div className="col-lg-2 col-md-6">
+              <div className="ul-footer-widget">
+                <h3 className="ul-footer-widget-title">Customer Care</h3>
+                <ul className="ul-footer-links">
+                  <li><Link to="/account">My Account</Link></li>
+                  <li><Link to="/wishlist">Wishlist</Link></li>
+                  <li><Link to="/cart">Shopping Cart</Link></li>
+                  <li><Link to="/orders">Track Order</Link></li>
+                  <li><Link to="/returns">Returns</Link></li>
+                </ul>
+              </div>
+            </div>
 
-          {/* Social */}
-          <div>
-            <h4 className="font-bold mb-4">Follow Us</h4>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition">
-                <FiFacebook size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition">
-                <FiInstagram size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition">
-                <FiTwitter size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition">
-                <FiLinkedin size={20} />
-              </a>
+            <div className="col-lg-2 col-md-6">
+              <div className="ul-footer-widget">
+                <h3 className="ul-footer-widget-title">Categories</h3>
+                <ul className="ul-footer-links">
+                  <li><Link to="/shop?cat=men">Men's Fashion</Link></li>
+                  <li><Link to="/shop?cat=women">Women's Fashion</Link></li>
+                  <li><Link to="/shop?cat=kids">Kids Fashion</Link></li>
+                  <li><Link to="/shop?cat=accessories">Accessories</Link></li>
+                  <li><Link to="/shop?cat=shoes">Footwear</Link></li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="col-lg-3 col-md-6">
+              <div className="ul-footer-widget">
+                <h3 className="ul-footer-widget-title">Newsletter</h3>
+                <p>Subscribe to get special offers and updates</p>
+                <form className="ul-footer-newsletter">
+                  <input type="email" placeholder="Your email" />
+                  <button type="submit" className="ul-btn">Subscribe</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              &copy; {currentYear} Fashion Brand. All rights reserved.
-            </p>
-            <div className="flex space-x-6 text-gray-400 text-sm">
-              <a href="#" className="hover:text-white transition">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-white transition">
-                Terms of Service
-              </a>
-              <a href="#" className="hover:text-white transition">
-                Cookie Policy
-              </a>
+        <div className="ul-footer-bottom">
+          <div className="row align-items-center">
+            <div className="col-md-6">
+              <p className="ul-footer-copyright">
+                © 2025 Glamer. All rights reserved.
+              </p>
+            </div>
+            <div className="col-md-6">
+              <div className="ul-footer-payment">
+                <img src="https://via.placeholder.com/50x30/cccccc/666?text=VISA" alt="Payment" />
+                <img src="https://via.placeholder.com/50x30/cccccc/666?text=MC" alt="Payment" />
+                <img src="https://via.placeholder.com/50x30/cccccc/666?text=AMEX" alt="Payment" />
+                <img src="https://via.placeholder.com/50x30/cccccc/666?text=PayPal" alt="Payment" />
+              </div>
             </div>
           </div>
         </div>
