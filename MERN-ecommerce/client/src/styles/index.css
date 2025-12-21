@@ -69,21 +69,44 @@ body {
 
 .ul-header-top {
     background: var(--ul-gradient);
-    padding: clamp(5px, 0.47vw, 9px);
-    margin-bottom: clamp(20px, 1.58vw, 30px);
+    color: white;
+    padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.ul-header-top-slider {
+    width: 100%;
+}
+
+.marquee-content {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
 }
 
 .ul-header-top-slider-item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 0;
-    text-transform: uppercase;
-    font-size: clamp(13px, 0.84vw, 16px);
+    gap: 8px;
+    font-size: 14px;
     font-weight: 500;
-    color: var(--white);
+    letter-spacing: 0.5px;
+    margin-right: 80px;
+    text-transform: uppercase;
+    margin-bottom: 0;
     justify-content: center;
     padding: 8px 0;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
 }
 
 .ul-header-bottom-wrapper {
@@ -180,77 +203,158 @@ body {
     color: var(--ul-primary);
 }
 
-/* Banner Styles */
+/* Banner Styles - Enhanced Dual Slider */
 .ul-banner {
     display: flex;
     gap: clamp(15px, 1.58vw, 30px);
-    margin-bottom: 60px;
+    margin: clamp(40px, 4.2vw, 80px) 0;
 }
 
 .ul-banner-slider-wrapper {
-    flex-grow: 1;
+    position: relative;
+    z-index: 11;
+    background-color: var(--white);
+}
+
+.ul-banner-slider-wrapper::before,
+.ul-banner-slider-wrapper::after {
+    content: "";
+    position: absolute;
+    right: 100%;
+    background-color: var(--white);
+    top: 0;
+    height: 100%;
+    width: 60px;
+}
+
+.ul-banner-slider-wrapper::after {
+    width: 10px;
+    left: 100%;
+    right: auto;
+}
+
+.ul-banner-slider {
+    max-width: clamp(310px, 59.12vw, 1125px);
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ul-banner-slides {
+    position: relative;
+    height: clamp(400px, 30vw, 600px);
+}
+
+.ul-banner-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ul-banner-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.ul-banner-slide--2 {
+    /* Specific styling for slide 2 if needed */
+}
+
+.ul-banner-slide--3 {
+    /* Specific styling for slide 3 if needed */
+}
+
+.ul-banner-slide-img {
+    width: 100%;
+    height: 100%;
     position: relative;
     border-radius: 30px;
     overflow: hidden;
 }
 
-.ul-banner-slide {
-    display: flex;
-    align-items: center;
-    min-height: 460px;
-    position: relative;
-    padding: 40px;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-}
-
-.ul-banner-slide--2 {
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-}
-
-.ul-banner-slide--3 {
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-}
-
-.ul-banner-slide-img {
-    flex: 1;
-    text-align: center;
-}
-
 .ul-banner-slide-img img {
-    max-width: 100%;
-    height: auto;
-    max-height: 350px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
 }
 
 .ul-banner-slide-txt {
-    flex: 1;
-    padding: 0 20px;
+    max-width: 58%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: clamp(15px, 3.15vw, 60px);
+    z-index: 2;
+}
+
+.ul-banner-slide.active .ul-banner-slide-sub-title {
+    animation: slideInUp 0.8s ease 0.3s forwards;
+}
+
+.ul-banner-slide.active .ul-banner-slide-title {
+    animation: slideInUp 0.8s ease 0.5s forwards;
+}
+
+.ul-banner-slide.active .ul-banner-slide-price {
+    animation: slideInUp 0.8s ease 0.7s forwards;
+}
+
+.ul-banner-slide.active .ul-btn {
+    animation: slideInUp 0.8s ease 0.9s forwards;
 }
 
 .ul-banner-slide-sub-title {
-    font-size: 14px;
+    font-weight: 400;
+    font-size: clamp(16px, 1.05vw, 20px);
+    letter-spacing: 0.3em;
     color: var(--ul-primary);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    display: block;
+    margin-bottom: clamp(10px, 1.26vw, 24px);
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .ul-banner-slide-title {
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 20px;
+    font-size: clamp(32px, 3.42vw, 65px);
+    font-weight: 600;
+    line-height: 108%;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: clamp(7px, 0.89vw, 17px);
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .ul-banner-slide-price {
-    font-size: 18px;
-    margin-bottom: 30px;
+    font-size: clamp(13px, 0.84vw, 16px);
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 0.79vw, 15px);
+    margin-bottom: clamp(13px, 1.21vw, 23px);
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .ul-banner-slide-price .price {
-    font-size: 24px;
-    font-weight: 700;
+    font-weight: 600;
+    font-size: clamp(18px, 1.58vw, 30px);
     color: var(--ul-primary);
+}
+
+.ul-banner-slide .ul-btn {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.ul-banner-slide .ul-btn:hover {
+    background-color: var(--ul-primary);
+    color: var(--white);
 }
 
 /* Banner Navigation */
@@ -259,41 +363,89 @@ body {
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    z-index: 10;
+    z-index: 3;
 }
 
 .ul-banner-slider-nav {
-    background: var(--white);
-    border-radius: 20px 0 0 20px;
+    background-color: var(--white);
     display: flex;
     flex-direction: column;
+    border-radius: 20px 0 0 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .ul-banner-slider-nav button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 15px;
-    background: none;
+    font-size: 22px;
+    color: var(--black);
+    background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 20px;
-    color: var(--black);
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+}
+
+.ul-banner-slider-nav button:first-child {
+    transform: rotate(180deg);
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .ul-banner-slider-nav button:hover {
     color: var(--ul-primary);
+    background: rgba(239, 40, 83, 0.05);
 }
 
-/* Image Slider */
+/* Banner Image Slider */
 .ul-banner-img-slider-wrapper {
-    width: 300px;
-    border-radius: 30px;
-    overflow: hidden;
+    max-width: clamp(270px, 23.65vw, 450px);
+    position: relative;
 }
 
-.ul-banner-img-slider img {
+.ul-banner-img-slider {
+    border-radius: 20px;
+    height: clamp(400px, 30vw, 600px);
+    overflow: hidden;
+    margin-right: calc(0% - clamp(0px, 12.61vw, 240px));
+}
+
+.banner-img-slides {
+    position: relative;
+    height: 100%;
+}
+
+.banner-img-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 460px;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.banner-img-slide.active {
+    opacity: 1;
+}
+
+.ul-banner-img-slider img,
+.banner-img-slide img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    border-radius: 20px;
+    aspect-ratio: 1/1;
+}
+
+/* Animations */
+@keyframes slideInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Categories */
