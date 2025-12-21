@@ -845,10 +845,9 @@ body {
 .ul-product-category a:hover {
     color: var(--ul-primary);
 }
-    margin-bottom: 60px;
-}
 
-.ul-category {
+/* Categories */
+.ul-categories {
     display: block;
     position: relative;
     border-radius: 20px;
