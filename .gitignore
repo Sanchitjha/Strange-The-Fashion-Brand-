@@ -31,3 +31,10 @@ logs
 
 # Package locks (optional - some prefer to commit these)
 package-lock.json
+
+# Large media files
+*.mp4
+*.mov
+*.avi
+*.mkv
+Temperory theme file/
