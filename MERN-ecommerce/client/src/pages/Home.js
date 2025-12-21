@@ -257,6 +257,152 @@ const Home = () => {
         </section>
       </div>
 
+      {/* VIDEO SECTION */}
+      <div className="ul-container">
+        <div className="ul-video">
+          <div>
+            <img src="/images/video-banner.jpg" alt="Video Banner" className="ul-video-cover" />
+          </div>
+          <a href="https://www.youtube.com/watch?v=cNOKQIw81SE" target="_blank" rel="noopener noreferrer" className="ul-video-btn">
+            <i className="flaticon-play-button-arrowhead">▶</i>
+          </a>
+        </div>
+      </div>
+
+      {/* SUB BANNER SECTION - Collection Boxes */}
+      <div className="ul-container">
+        <section className="ul-sub-banners">
+          <div className="ul-inner-container">
+            <div className="row ul-bs-row row-cols-md-3 row-cols-sm-2 row-cols-1">
+              <div className="col">
+                <div className="ul-sub-banner">
+                  <div className="ul-sub-banner-txt">
+                    <div className="top">
+                      <span className="ul-ad-sub-title">Trending Products</span>
+                      <h3 className="ul-sub-banner-title">Women's collections</h3>
+                      <p className="ul-sub-banner-descr">Up to 22% off Gimbals</p>
+                    </div>
+                    <div className="bottom">
+                      <a href="/shop" className="ul-sub-banner-btn">Collection <i className="flaticon-up-right-arrow">↗</i></a>
+                    </div>
+                  </div>
+                  <div className="ul-sub-banner-img">
+                    <img src="/images/sub-banner-1.png" alt="Women's Collection" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="col">
+                <div className="ul-sub-banner ul-sub-banner--2">
+                  <div className="ul-sub-banner-txt">
+                    <div className="top">
+                      <span className="ul-ad-sub-title">Trending Products</span>
+                      <h3 className="ul-sub-banner-title">Men's collections</h3>
+                      <p className="ul-sub-banner-descr">Up to 22% off Gimbals</p>
+                    </div>
+                    <div className="bottom">
+                      <a href="/shop" className="ul-sub-banner-btn">Collection <i className="flaticon-up-right-arrow">↗</i></a>
+                    </div>
+                  </div>
+                  <div className="ul-sub-banner-img">
+                    <img src="/images/sub-banner-2.png" alt="Men's Collection" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="col">
+                <div className="ul-sub-banner ul-sub-banner--3">
+                  <div className="ul-sub-banner-txt">
+                    <div className="top">
+                      <span className="ul-ad-sub-title">Trending Products</span>
+                      <h3 className="ul-sub-banner-title">Kid's collections</h3>
+                      <p className="ul-sub-banner-descr">Up to 22% off Gimbals</p>
+                    </div>
+                    <div className="bottom">
+                      <a href="/shop" className="ul-sub-banner-btn">Collection <i className="flaticon-up-right-arrow">↗</i></a>
+                    </div>
+                  </div>
+                  <div className="ul-sub-banner-img">
+                    <img src="/images/sub-banner-3.png" alt="Kid's Collection" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* FLASH SALE SECTION with Countdown */}
+      <div className="overflow-hidden">
+        <div className="ul-container">
+          <div className="ul-flash-sale">
+            <div className="ul-inner-container">
+              <div className="ul-section-heading ul-flash-sale-heading">
+                <div className="left">
+                  <span className="ul-section-sub-title">New Collection</span>
+                  <h2 className="ul-section-title">Trending Flash Sell</h2>
+                </div>
+
+                <div className="ul-flash-sale-countdown-wrapper">
+                  <div className="ul-flash-sale-countdown">
+                    <div className="days-wrapper">
+                      <div className="days number">15</div>
+                      <span className="txt">Days</span>
+                    </div>
+                    <div className="hours-wrapper">
+                      <div className="hours number">23</div>
+                      <span className="txt">Hours</span>
+                    </div>
+                    <div className="minutes-wrapper">
+                      <div className="minutes number">44</div>
+                      <span className="txt">Min</span>
+                    </div>
+                    <div className="seconds-wrapper">
+                      <div className="seconds number">35</div>
+                      <span className="txt">Sec</span>
+                    </div>
+                  </div>
+                </div>
+
+                <a href="/shop" className="ul-btn">View All Collection <i className="flaticon-up-right-arrow">↗</i></a>
+              </div>
+
+              <div className="row row-cols-lg-5 row-cols-md-4 row-cols-3 row-cols-2 row-cols-xxs-1">
+                {products.slice(0, 5).map((product) => (
+                  <div key={product._id} className="col">
+                    <div className="ul-product">
+                      <div className="ul-product-heading">
+                        <span className="ul-product-price">${product.price}</span>
+                        <span className="ul-product-discount-tag">{product.discount}</span>
+                      </div>
+
+                      <div className="ul-product-img">
+                        <img src={product.image} alt={product.name} />
+                        
+                        <div className="ul-product-actions">
+                          <button><i className="flaticon-shopping-bag">🛍️</i></button>
+                          <a href="#"><i className="flaticon-hide">👁️</i></a>
+                          <button><i className="flaticon-heart">❤️</i></button>
+                        </div>
+                      </div>
+
+                      <div className="ul-product-txt">
+                        <h4 className="ul-product-title">
+                          <a href="/product-details">{product.name}</a>
+                        </h4>
+                        <h5 className="ul-product-category">
+                          <a href="/shop">{product.category}</a>
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Blog Preview Section */}
       <div className="ul-container">
         <section className="py-16 bg-gray-50">
