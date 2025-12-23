@@ -11,9 +11,9 @@ import {
   Search
 } from 'lucide-react';
 
-// Simple Card Components
+// Enhanced UI Components with Better Contrast
 const Card = ({ children, className = '' }: { children: React.ReactNode, className?: string }) => (
-  <div className={`bg-white rounded-lg border shadow-sm ${className}`}>{children}</div>
+  <div className={`bg-white rounded-xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 ${className}`}>{children}</div>
 );
 
 const CardHeader = ({ children }: { children: React.ReactNode }) => (
@@ -21,23 +21,31 @@ const CardHeader = ({ children }: { children: React.ReactNode }) => (
 );
 
 const CardTitle = ({ children }: { children: React.ReactNode }) => (
-  <h3 className="text-lg font-semibold">{children}</h3>
+  <h3 className="text-xl font-bold text-gray-900 tracking-tight">{children}</h3>
 );
 
 const CardContent = ({ children, className = '' }: { children: React.ReactNode, className?: string }) => (
-  <div className={`p-6 pt-0 ${className}`}>{children}</div>
+  <div className={`p-6 pt-2 ${className}`}>{children}</div>
 );
 
-const Badge = ({ children, variant = 'default' }: { children: React.ReactNode, variant?: string }) => (
-  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-    variant === 'destructive' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
-  }`}>
-    {children}
-  </span>
-);
+const Badge = ({ children, variant = 'default' }: { children: React.ReactNode, variant?: string }) => {
+  const styles = {
+    default: 'bg-blue-100 text-blue-900 border border-blue-200',
+    success: 'bg-green-100 text-green-900 border border-green-200',
+    warning: 'bg-yellow-100 text-yellow-900 border border-yellow-200',
+    danger: 'bg-red-100 text-red-900 border border-red-200',
+    secondary: 'bg-gray-100 text-gray-900 border border-gray-200'
+  };
+  
+  return (
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${styles[variant as keyof typeof styles] || styles.default}`}>
+      {children}
+    </span>
+  );
+};
 
 const Button = ({ children, className = '' }: { children: React.ReactNode, className?: string }) => (
-  <button className={`inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg hover:from-pink-600 hover:to-orange-600 transition-all ${className}`}>
+  <button className={`inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl ${className}`}>
     {children}
   </button>
 );
@@ -99,106 +107,118 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Fashion Brand Admin</h1>
-          <p className="text-gray-600">Welcome to your clothing brand dashboard</p>
+        {/* Enhanced Header */}
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-black text-gray-900 mb-3 tracking-tight">Fashion Brand Admin</h1>
+          <p className="text-lg font-medium text-gray-700">Welcome to your clothing brand dashboard</p>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
+        {/* Enhanced Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+          <Card className="transform hover:scale-105 transition-transform duration-300">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Total Products</CardTitle>
-                <Package className="h-8 w-8 text-pink-500" />
+                <CardTitle className="text-gray-800">Total Products</CardTitle>
+                <div className="p-3 bg-blue-100 rounded-full">
+                  <Package className="h-8 w-8 text-blue-600" />
+                </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.totalProducts}</div>
-              <p className="text-xs text-gray-500">Active products in store</p>
+              <div className="text-3xl font-black text-gray-900 mb-1">{stats.totalProducts}</div>
+              <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Active products in store</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transform hover:scale-105 transition-transform duration-300">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Total Orders</CardTitle>
-                <ShoppingBag className="h-8 w-8 text-orange-500" />
+                <CardTitle className="text-gray-800">Total Orders</CardTitle>
+                <div className="p-3 bg-green-100 rounded-full">
+                  <ShoppingBag className="h-8 w-8 text-green-600" />
+                </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.totalOrders}</div>
-              <p className="text-xs text-gray-500">All time orders</p>
+              <div className="text-3xl font-black text-gray-900 mb-1">{stats.totalOrders}</div>
+              <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">All time orders</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transform hover:scale-105 transition-transform duration-300">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Total Revenue</CardTitle>
-                <TrendingUp className="h-8 w-8 text-green-500" />
+                <CardTitle className="text-gray-800">Total Revenue</CardTitle>
+                <div className="p-3 bg-purple-100 rounded-full">
+                  <TrendingUp className="h-8 w-8 text-purple-600" />
+                </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">₹{stats.totalRevenue.toLocaleString()}</div>
-              <p className="text-xs text-gray-500">Total sales revenue</p>
+              <div className="text-3xl font-black text-gray-900 mb-1">₹{stats.totalRevenue.toLocaleString()}</div>
+              <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Total sales revenue</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="transform hover:scale-105 transition-transform duration-300">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Low Stock</CardTitle>
-                <Package className="h-8 w-8 text-red-500" />
+                <CardTitle className="text-gray-800">Low Stock</CardTitle>
+                <div className="p-3 bg-red-100 rounded-full">
+                  <Package className="h-8 w-8 text-red-600" />
+                </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-600">{stats.lowStockItems}</div>
-              <p className="text-xs text-gray-500">Items below 10 units</p>
+              <div className="text-3xl font-black text-red-600 mb-1">{stats.lowStockItems}</div>
+              <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Items below 10 units</p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Recent Orders */}
-        <Card className="mb-8">
-          <CardHeader>
+        {/* Enhanced Recent Orders */}
+        <Card className="mb-10 overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b border-gray-200">
             <div className="flex justify-between items-center">
-              <CardTitle>Recent Orders</CardTitle>
-              <Button>
-                <Plus className="h-4 w-4 mr-2" />
-                View All
+              <CardTitle className="text-2xl text-gray-900">Recent Orders</CardTitle>
+              <Button className="px-6 py-2">
+                <Plus className="h-5 w-5 mr-2" />
+                View All Orders
               </Button>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-3 px-4">Order ID</th>
-                    <th className="text-left py-3 px-4">Customer</th>
-                    <th className="text-left py-3 px-4">Amount</th>
-                    <th className="text-left py-3 px-4">Status</th>
-                    <th className="text-left py-3 px-4">Date</th>
+                <thead className="bg-gray-50 border-b border-gray-200">
+                  <tr>
+                    <th className="text-left py-4 px-6 text-sm font-bold text-gray-900 uppercase tracking-wider">Order ID</th>
+                    <th className="text-left py-4 px-6 text-sm font-bold text-gray-900 uppercase tracking-wider">Customer</th>
+                    <th className="text-left py-4 px-6 text-sm font-bold text-gray-900 uppercase tracking-wider">Amount</th>
+                    <th className="text-left py-4 px-6 text-sm font-bold text-gray-900 uppercase tracking-wider">Status</th>
+                    <th className="text-left py-4 px-6 text-sm font-bold text-gray-900 uppercase tracking-wider">Date</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {orders.map((order) => (
-                    <tr key={order._id} className="border-b hover:bg-gray-50">
-                      <td className="py-3 px-4 font-medium">{order.orderNumber}</td>
-                      <td className="py-3 px-4">{order.customerInfo.name}</td>
-                      <td className="py-3 px-4">₹{order.total.toLocaleString()}</td>
-                      <td className="py-3 px-4">
+                <tbody className="bg-white">
+                  {orders.map((order, index) => (
+                    <tr key={order._id} className={`border-b border-gray-100 hover:bg-blue-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
+                      <td className="py-4 px-6 font-bold text-gray-900 text-sm">{order.orderNumber}</td>
+                      <td className="py-4 px-6 font-semibold text-gray-800 text-sm">{order.customerInfo.name}</td>
+                      <td className="py-4 px-6 font-bold text-gray-900 text-sm">₹{order.total.toLocaleString()}</td>
+                      <td className="py-4 px-6">
                         <Badge 
-                          variant={order.status === 'delivered' ? 'default' : 'secondary'}
+                          variant={
+                            order.status === 'delivered' ? 'success' : 
+                            order.status === 'shipped' ? 'default' : 
+                            order.status === 'processing' ? 'warning' : 'secondary'
+                          }
                         >
                           {order.status}
                         </Badge>
                       </td>
-                      <td className="py-3 px-4">
+                      <td className="py-4 px-6 font-medium text-gray-700 text-sm">
                         {new Date(order.createdAt).toLocaleDateString()}
                       </td>
                     </tr>
@@ -209,65 +229,65 @@ const AdminDashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
+        {/* Enhanced Quick Actions Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <Card className="transform hover:scale-105 transition-all duration-300">
+            <CardHeader className="text-center">
+              <CardTitle className="text-xl text-gray-900">Quick Actions</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <Button className="w-full justify-start">
-                <Plus className="h-4 w-4 mr-2" />
+            <CardContent className="space-y-4">
+              <Button className="w-full justify-center text-base font-bold">
+                <Plus className="h-5 w-5 mr-2" />
                 Add New Product
               </Button>
-              <Button className="w-full justify-start">
-                <Package className="h-4 w-4 mr-2" />
+              <Button className="w-full justify-center text-base font-bold bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700">
+                <Package className="h-5 w-5 mr-2" />
                 Manage Inventory
               </Button>
-              <Button className="w-full justify-start">
-                <Users className="h-4 w-4 mr-2" />
+              <Button className="w-full justify-center text-base font-bold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+                <Users className="h-5 w-5 mr-2" />
                 View Customers
               </Button>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>System Status</CardTitle>
+          <Card className="transform hover:scale-105 transition-all duration-300">
+            <CardHeader className="text-center">
+              <CardTitle className="text-xl text-gray-900">System Status</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Database</span>
-                <Badge>Connected</Badge>
+            <CardContent className="space-y-4">
+              <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                <span className="text-sm font-bold text-gray-900">Database</span>
+                <Badge variant="success">Connected</Badge>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Payment Gateway</span>
-                <Badge>Active</Badge>
+              <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <span className="text-sm font-bold text-gray-900">Payment Gateway</span>
+                <Badge variant="default">Active</Badge>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Email Service</span>
-                <Badge>Running</Badge>
+              <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                <span className="text-sm font-bold text-gray-900">Email Service</span>
+                <Badge variant="success">Running</Badge>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Today's Summary</CardTitle>
+          <Card className="transform hover:scale-105 transition-all duration-300">
+            <CardHeader className="text-center">
+              <CardTitle className="text-xl text-gray-900">Today's Summary</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-sm">New Orders</span>
-                  <span className="font-semibold">12</span>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border">
+                  <span className="text-sm font-bold text-gray-900">New Orders</span>
+                  <span className="text-lg font-black text-blue-600">12</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-sm">Revenue</span>
-                  <span className="font-semibold">₹45,230</span>
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border">
+                  <span className="text-sm font-bold text-gray-900">Revenue</span>
+                  <span className="text-lg font-black text-green-600">₹45,230</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-sm">Visitors</span>
-                  <span className="font-semibold">1,247</span>
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border">
+                  <span className="text-sm font-bold text-gray-900">Visitors</span>
+                  <span className="text-lg font-black text-purple-600">1,247</span>
                 </div>
               </div>
             </CardContent>
