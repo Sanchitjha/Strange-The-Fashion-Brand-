@@ -636,13 +636,13 @@ const AdminDashboard = () => {
                         </div>
                       )}
                       <div className="absolute bottom-2 right-2 flex space-x-1">
-                        <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50">
+                        <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50" aria-label="View product images">
                           <Camera className="h-4 w-4 text-gray-700" />
                         </button>
-                        <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50">
+                        <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50" aria-label="Edit product">
                           <Edit className="h-4 w-4 text-blue-600" />
                         </button>
-                        <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50">
+                        <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-50" aria-label="View product details">
                           <Eye className="h-4 w-4 text-green-600" />
                         </button>
                       </div>
@@ -759,10 +759,13 @@ const AdminDashboard = () => {
                             <td className="py-4 px-6 font-semibold text-gray-700">{product.category}</td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-2">
+                                <label htmlFor={`stock-${product._id}`} className="sr-only">Stock quantity</label>
                                 <input 
+                                  id={`stock-${product._id}`}
                                   type="number" 
                                   value={product.stock} 
                                   className="w-20 px-2 py-1 border border-gray-300 rounded text-center font-bold"
+                                  aria-label="Stock quantity"
                                 />
                                 <span className="text-sm text-gray-500">units</span>
                               </div>
@@ -782,10 +785,10 @@ const AdminDashboard = () => {
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex space-x-2">
-                                <button className="p-2 bg-blue-100 text-blue-600 rounded hover:bg-blue-200">
+                                <button className="p-2 bg-blue-100 text-blue-600 rounded hover:bg-blue-200" aria-label="Edit product">
                                   <Edit className="h-4 w-4" />
                                 </button>
-                                <button className="p-2 bg-green-100 text-green-600 rounded hover:bg-green-200">
+                                <button className="p-2 bg-green-100 text-green-600 rounded hover:bg-green-200" aria-label="Refresh stock">
                                   <RefreshCw className="h-4 w-4" />
                                 </button>
                               </div>
@@ -939,13 +942,13 @@ const AdminDashboard = () => {
                           }}
                         />
                         <div className="absolute top-2 right-2 flex space-x-1">
-                          <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white">
+                          <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white" aria-label="Edit image">
                             <Edit className="h-4 w-4 text-blue-600" />
                           </button>
-                          <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white">
+                          <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white" aria-label="Download image">
                             <Download className="h-4 w-4 text-green-600" />
                           </button>
-                          <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white">
+                          <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white" aria-label="Delete image">
                             <Trash2 className="h-4 w-4 text-red-600" />
                           </button>
                         </div>
@@ -996,10 +999,10 @@ const AdminDashboard = () => {
                         </Badge>
                       </div>
                       <div className="absolute top-4 right-4 flex space-x-2">
-                        <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white">
+                        <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white" aria-label="Edit banner">
                           <Edit className="h-4 w-4 text-blue-600" />
                         </button>
-                        <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white">
+                        <button className="p-2 bg-white/90 rounded-full shadow-lg hover:bg-white" aria-label="Preview banner">
                           <Eye className="h-4 w-4 text-green-600" />
                         </button>
                       </div>
@@ -1008,16 +1011,18 @@ const AdminDashboard = () => {
                       <h3 className="text-xl font-bold text-gray-900 mb-2">{banner.name}</h3>
                       <div className="space-y-2">
                         <div>
-                          <label className="text-sm font-bold text-gray-700">Title:</label>
+                          <label htmlFor={`title-${banner._id}`} className="text-sm font-bold text-gray-700">Title:</label>
                           <input 
+                            id={`title-${banner._id}`}
                             type="text" 
                             value={banner.title} 
                             className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md font-semibold"
                           />
                         </div>
                         <div>
-                          <label className="text-sm font-bold text-gray-700">Subtitle:</label>
+                          <label htmlFor={`subtitle-${banner._id}`} className="text-sm font-bold text-gray-700">Subtitle:</label>
                           <input 
+                            id={`subtitle-${banner._id}`}
                             type="text" 
                             value={banner.subtitle} 
                             className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md"
@@ -1067,13 +1072,13 @@ const AdminDashboard = () => {
                       />
                       <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="flex space-x-2">
-                          <button className="p-3 bg-white rounded-full shadow-lg hover:scale-110 transition-transform">
+                          <button className="p-3 bg-white rounded-full shadow-lg hover:scale-110 transition-transform" aria-label="Edit category">
                             <Edit className="h-5 w-5 text-blue-600" />
                           </button>
-                          <button className="p-3 bg-white rounded-full shadow-lg hover:scale-110 transition-transform">
+                          <button className="p-3 bg-white rounded-full shadow-lg hover:scale-110 transition-transform" aria-label="Change category image">
                             <Camera className="h-5 w-5 text-green-600" />
                           </button>
-                          <button className="p-3 bg-white rounded-full shadow-lg hover:scale-110 transition-transform">
+                          <button className="p-3 bg-white rounded-full shadow-lg hover:scale-110 transition-transform" aria-label="Delete category">
                             <Trash2 className="h-5 w-5 text-red-600" />
                           </button>
                         </div>
@@ -1086,10 +1091,13 @@ const AdminDashboard = () => {
                           {category.isActive ? 'Active' : 'Inactive'}
                         </Badge>
                       </div>
+                      <label htmlFor={`category-${category._id}`} className="sr-only">Category name</label>
                       <input 
+                        id={`category-${category._id}`}
                         type="text" 
                         value={category.name} 
                         className="w-full px-3 py-2 border border-gray-300 rounded-md font-semibold text-sm"
+                        aria-label="Category name"
                       />
                     </CardContent>
                   </Card>
@@ -1132,15 +1140,15 @@ const AdminDashboard = () => {
                           <div className="flex justify-between items-end">
                             <div className="text-white">
                               <h4 className="font-bold text-lg">{item.name}</h4>
-                              <Badge variant={item.isActive ? 'success' : 'secondary'} className="mt-2">
+                              <Badge variant={item.isActive ? 'success' : 'secondary'}>
                                 {item.isActive ? 'Published' : 'Hidden'}
                               </Badge>
                             </div>
                             <div className="flex space-x-2">
-                              <button className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30">
+                              <button className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30" aria-label="Add to favorites">
                                 <Heart className="h-4 w-4" />
                               </button>
-                              <button className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30">
+                              <button className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30" aria-label="Edit gallery item">
                                 <Edit className="h-4 w-4" />
                               </button>
                             </div>
@@ -1150,10 +1158,13 @@ const AdminDashboard = () => {
                     </div>
                     <CardContent className="p-4">
                       <div className="flex justify-between items-center">
+                        <label htmlFor={`gallery-${item._id}`} className="sr-only">Gallery item name</label>
                         <input 
+                          id={`gallery-${item._id}`}
                           type="text" 
                           value={item.name} 
                           className="flex-1 mr-3 px-3 py-2 border border-gray-300 rounded-md font-semibold text-sm"
+                          aria-label="Gallery item name"
                         />
                         <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-semibold">
                           Save
