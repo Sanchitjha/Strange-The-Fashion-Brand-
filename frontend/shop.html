@@ -17,6 +17,7 @@
 
     <!-- custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
 </head>
 
 <body>
@@ -326,7 +327,12 @@
                         <button class="ul-header-mobile-search-opener d-xxl-none" aria-label="Open search"><i class="flaticon-search-interface-symbol"></i></button>
                         <a href="login.html" aria-label="Login"><i class="flaticon-user"></i></a>
                         <a href="wishlist.html" aria-label="Wishlist"><i class="flaticon-heart"></i></a>
-                        <a href="cart.html" aria-label="Shopping cart"><i class="flaticon-shopping-bag"></i></a>
+                        <div class="cart-icon-container">
+                            <a href="cart.html" aria-label="Shopping cart" id="cart-icon">
+                                <i class="flaticon-shopping-bag"></i>
+                                <span class="cart-badge hidden" id="cart-badge">0</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- sidebar opener -->
@@ -542,7 +548,7 @@
                         <div class="row ul-bs-row row-cols-lg-3 row-cols-2 row-cols-xxs-1">
                             <!-- product card -->
                             <div class="col">
-                                <div class="ul-product">
+                                <div class="ul-product" data-product-id="1" data-product-name="Orange Airsuit" data-product-price="99.00" data-product-image="assets/img/product-img-1.jpg" data-product-category="Fashion Bag">
                                     <div class="ul-product-heading">
                                         <span class="ul-product-price">$99.00</span>
                                         <span class="ul-product-discount-tag">25% Off</span>
@@ -552,7 +558,7 @@
                                         <img src="assets/img/product-img-1.jpg" alt="Product Image">
 
                                         <div class="ul-product-actions">
-                                            <button aria-label="Add to cart"><i class="flaticon-shopping-bag"></i></button>
+                                            <button class="add-to-cart-btn" data-product-id="1" aria-label="Add to cart"><i class="flaticon-shopping-bag"></i></button>
                                             <a href="#" aria-label="Quick view"><i class="flaticon-hide"></i></a>
                                             <button aria-label="Add to wishlist"><i class="flaticon-heart"></i></button>
                                         </div>
@@ -1008,6 +1014,17 @@
 
     <!-- custom JS -->
     <script src="assets/js/main.js"></script>
+    
+    <!-- Product data and Cart functionality -->
+    <script src="assets/js/product-data.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script>
+        // Initialize cart and products when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProductCards();
+            window.shoppingCart = new ShoppingCart();
+        });
+    </script>
 </body>
 
 </html>
