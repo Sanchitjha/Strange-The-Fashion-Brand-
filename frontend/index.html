@@ -16,6 +16,7 @@
 
     <!-- custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
 </head>
 
 <body>
@@ -326,7 +327,12 @@
                         <button class="ul-header-mobile-search-opener d-xxl-none" aria-label="Open search"><i class="flaticon-search-interface-symbol"></i></button>
                         <a href="login.html" aria-label="Login"><i class="flaticon-user"></i></a>
                         <a href="wishlist.html" aria-label="Wishlist"><i class="flaticon-heart"></i></a>
-                        <a href="cart.html" aria-label="Shopping cart"><i class="flaticon-shopping-bag"></i></a>
+                        <div class="cart-icon-container">
+                            <a href="cart.html" aria-label="Shopping cart" id="cart-icon">
+                                <i class="flaticon-shopping-bag"></i>
+                                <span class="cart-badge hidden" id="cart-badge">0</span>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- sidebar opener -->
@@ -1899,6 +1905,17 @@
     <!-- custom JS -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/countdown.js"></script>
+    
+    <!-- Product data and Cart functionality -->
+    <script src="assets/js/product-data.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script>
+        // Initialize cart and products when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProductCards();
+            window.shoppingCart = new ShoppingCart();
+        });
+    </script>
 </body>
 
 </html>
