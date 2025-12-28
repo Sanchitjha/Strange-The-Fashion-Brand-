@@ -16,6 +16,7 @@
 
     <!-- custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
 </head>
 
 <body>
@@ -356,47 +357,32 @@
 
         <div class="ul-cart-container">
             <div class="cart-top">
-                <div class="text-center">
-                    <!-- cart header -->
-                    <div class="ul-cart-header ul-wishlist-header">
-                        <div>Product</div>
-                        <div>Price</div>
-                        <div>Stock</div>
-                        <div>Remove</div>
-                    </div>
-
-                    <!-- cart body -->
-                    <div>
-                        <!-- single wishlist item -->
-                        <div class="ul-cart-item">
-                            <!-- product -->
-                            <div class="ul-cart-product">
-                                <a href="shop-details.html" class="ul-cart-product-img"><img src="assets/img/product-img-sm-6.jpg" alt="Product"></a>
-                                <a href="shop-details.html" class="ul-cart-product-title">Simple Things You to Save Book</a>
-                            </div>
-                            <!-- price -->
-                            <span class="ul-cart-item-price">$60.00</span>
-
-                            <!-- subtotal -->
-                            <span class="ul-cart-item-subtotal ul-wislist-item-stock green">in stock</span>
-
-                            <!-- remove -->
-                            <div class="ul-cart-item-remove">
-                                <button aria-label="Remove from wishlist"><i class="flaticon-close"></i></button>
-                            </div>
+                <div class="container">
+                    <h1 class="text-center mb-4">My Wishlist</h1>
+                    
+                    <!-- Dynamic Wishlist Items Container -->
+                    <div id="wishlist-items" class="wishlist-container">
+                        <!-- Wishlist items will be populated by JavaScript -->
+                        <div class="empty-wishlist text-center py-5">
+                            <i class="flaticon-heart" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
+                            <h3>Your wishlist is empty</h3>
+                            <p>Add some products you love to your wishlist!</p>
+                            <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
                         </div>
-
-                        <!-- single wishlist item -->
-                        <div class="ul-cart-item">
-                            <!-- product -->
-                            <div class="ul-cart-product">
-                                <a href="shop-details.html" class="ul-cart-product-img"><img src="assets/img/product-img-sm-6.jpg" alt="Product"></a>
-                                <a href="shop-details.html" class="ul-cart-product-title">Simple Things You to Save Book</a>
-                            </div>
-                            <!-- price -->
-                            <span class="ul-cart-item-price">$60.00</span>
-
-                            <!-- subtotal -->
+                    </div>
+                    
+                    <!-- Continue Shopping -->
+                    <div class="text-center mt-4">
+                        <a href="shop.html" class="btn btn-outline-primary me-3">
+                            <i class="flaticon-arrow-point-to-left"></i> Continue Shopping
+                        </a>
+                        <a href="cart.html" class="btn btn-primary">
+                            <i class="flaticon-shopping-bag"></i> View Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
                             <span class="ul-cart-item-subtotal ul-wislist-item-stock red">Out of Stock</span>
 
                             <!-- remove -->
@@ -593,6 +579,20 @@
 
     <!-- custom JS -->
     <script src="assets/js/main.js"></script>
+    
+    <!-- Product data and Cart/Wishlist functionality -->
+    <script src="assets/js/product-data.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script>
+        // Initialize cart and wishlist when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProductCards();
+            window.shoppingCart = new ShoppingCart();
+            
+            // Force wishlist UI update
+            window.shoppingCart.updateWishlistUI();
+        });
+    </script>
 </body>
 
 </html>
