@@ -16,6 +16,7 @@
 
     <!-- custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
 </head>
 
 <body>
@@ -354,49 +355,79 @@
 
 
         <div class="ul-cart-container">
-            <div class="cart-top">
-                <div class="table-responsive">
-                    <table class="ul-cart-table">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Subtotal</th>
-                                <th>Remove</th>
-                            </tr>
-                        </thead>
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Cart Items -->
+                    <div class="cart-section">
+                        <div class="cart-header">
+                            <h3>Shopping Cart</h3>
+                            <p class="cart-count-text">You have <span class="cart-item-count">0</span> items in your cart</p>
+                        </div>
+                        
+                        <div class="cart-items-container">
+                            <!-- Cart items will be populated by JavaScript -->
+                        </div>
 
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="ul-cart-product">
-                                        <a href="shop-details.html" class="ul-cart-product-img"><img src="assets/img/product-img-sm-6.jpg" alt="Product"></a>
-                                        <a href="shop-details.html" class="ul-cart-product-title">Simple Things You to Save Book</a>
-                                    </div>
-                                </td>
-                                <td><span class="ul-cart-item-price">$10.00</span></td>
-                                <td>
-                                    <div class="ul-product-details-quantity mt-0">
-                                        <form action="#" class="ul-product-quantity-wrapper">
-                                            <input type="number" aria-label="Product quantity" name="product-quantity" class="ul-product-quantity" value="1" min="1" readonly="">
-                                            <div class="btns">
-                                                <button type="button" class="quantityIncreaseButton" aria-label="Increase quantity"><i class="flaticon-plus"></i></button>
-                                                <button type="button" class="quantityDecreaseButton" aria-label="Decrease quantity"><i class="flaticon-minus-sign"></i></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </td>
-                                <td><span class="ul-cart-item-subtotal">$10.00</span></td>
-                                <td>
-                                    <div class="ul-cart-item-remove"><button aria-label="Remove item from cart"><i class="flaticon-close"></i></button></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <!-- Saved for Later Section -->
+                        <div class="saved-for-later-section hidden">
+                            <h4>Saved for Later</h4>
+                            <div class="saved-for-later-container">
+                                <!-- Saved items will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div>
+                <div class="col-lg-4">
+                    <!-- Cart Summary -->
+                    <div class="cart-summary">
+                        <!-- Summary will be populated by JavaScript -->
+                    </div>
+
+                    <!-- Promo Code -->
+                    <div class="promo-code-section">
+                        <h4>Promo Code</h4>
+                        <form class="promo-form">
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter promo code" class="promo-input" id="promoCode">
+                                <button type="submit" class="apply-promo-btn">Apply</button>
+                            </div>
+                        </form>
+                        <div class="promo-message"></div>
+                    </div>
+
+                    <!-- Security badges -->
+                    <div class="security-badges">
+                        <h5>Secure Checkout</h5>
+                        <div class="security-icons">
+                            <div class="security-item">
+                                <i class="flaticon-shield"></i>
+                                <span>SSL Encrypted</span>
+                            </div>
+                            <div class="security-item">
+                                <i class="flaticon-credit-card"></i>
+                                <span>Secure Payment</span>
+                            </div>
+                            <div class="security-item">
+                                <i class="flaticon-truck"></i>
+                                <span>Free Shipping</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue Shopping -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="continue-shopping">
+                        <a href="shop.html" class="continue-shopping-btn">
+                            <i class="flaticon-left-arrow"></i>
+                            Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
                     <div class="ul-cart-actions">
                         <div class="ul-cart-coupon-code-form-wrapper">
                             <span class="title">Coupon:</span>
@@ -583,6 +614,15 @@
 
     <!-- custom JS -->
     <script src="assets/js/main.js"></script>
+    
+    <!-- Cart functionality -->
+    <script src="assets/js/cart.js"></script>
+    <script>
+        // Initialize cart when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            window.shoppingCart = new ShoppingCart();
+        });
+    </script>
 </body>
 
 </html>
