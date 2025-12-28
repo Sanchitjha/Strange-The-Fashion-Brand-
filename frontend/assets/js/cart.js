@@ -3,6 +3,7 @@ class ShoppingCart {
     constructor() {
         this.cart = JSON.parse(localStorage.getItem('fashionCart')) || [];
         this.savedForLater = JSON.parse(localStorage.getItem('savedForLater')) || [];
+        this.wishlist = JSON.parse(localStorage.getItem('fashionWishlist')) || [];
         this.notifications = JSON.parse(localStorage.getItem('cartNotifications')) || [];
         this.apiBase = window.location.hostname === 'localhost' ? 'http://localhost:3001/api' : '/api';
         this.init();
@@ -10,8 +11,11 @@ class ShoppingCart {
 
     init() {
         this.updateCartCount();
+        this.updateWishlistCount();
         this.updateCartUI();
+        this.updateWishlistUI();
         this.bindEvents();
+        this.bindWishlistEvents();
         this.loadCartFromStorage();
     }
 
@@ -411,9 +415,19 @@ class ShoppingCart {
     bindEvents() {
         // Add to cart buttons
         document.addEventListener('click', (e) => {
-            if (e.target.matches('.add-to-cart, .add-to-bag') || e.target.closest('.add-to-cart, .add-to-bag')) {
+            const button = e.target.closest('button[aria-label="Add to cart"], .add-to-cart-btn, .add-to-cart, .add-to-bag');
+            if (button) {
                 e.preventDefault();
                 this.handleAddToCart(e);
+            }
+        });
+
+        // Add to wishlist buttons
+        document.addEventListener('click', (e) => {
+            const button = e.target.closest('button[aria-label="Add to wishlist"], .add-to-wishlist');
+            if (button) {
+                e.preventDefault();
+                this.handleAddToWishlist(e);
             }
         });
 
@@ -424,30 +438,53 @@ class ShoppingCart {
                 this.handleQuickAddToCart(e);
             }
         });
+
+        // Cart icon click
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('#cart-icon, .cart-icon')) {
+                e.preventDefault();
+                window.location.href = 'cart.html';
+            }
+        });
     }
 
     // Handle add to cart button click
     handleAddToCart(e) {
-        const button = e.target.closest('.add-to-cart, .add-to-bag');
-        const productCard = button.closest('.product-card, .product-details, .ul-product-item');
+        const button = e.target.closest('button[aria-label="Add to cart"], .add-to-cart-btn, .add-to-cart, .add-to-bag');
+        const productCard = button.closest('.ul-product, .product-card, .product-details');
         
-        if (!productCard) return;
+        if (!productCard) {
+            console.log('Product card not found');
+            return;
+        }
 
-        // Get product details
-        const productId = productCard.dataset.productId || button.dataset.productId || Math.random().toString(36).substr(2, 9);
-        const productName = productCard.querySelector('.product-title, .product-name, h3, h4')?.textContent?.trim();
-        const priceElement = productCard.querySelector('.price, .product-price');
-        const price = priceElement ? priceElement.textContent.replace(/[₹$,]/g, '').trim() : '99.00';
-        const image = productCard.querySelector('img')?.src || '';
+        // Get product details from data attributes or DOM
+        let productId = productCard.dataset.productId || button.dataset.productId;
+        let productName = productCard.dataset.productName;
+        let price = productCard.dataset.productPrice;
+        let image = productCard.dataset.productImage;
 
-        // Get selected size and color
-        const selectedSize = this.getSelectedSize(productCard);
-        const selectedColor = this.getSelectedColor(productCard);
-        const quantity = this.getSelectedQuantity(productCard);
+        // Fallback to DOM elements if data attributes not found
+        if (!productName) {
+            const titleElement = productCard.querySelector('.ul-product-title a, .product-title, .product-name, h3, h4');
+            productName = titleElement?.textContent?.trim() || 'Unknown Product';
+        }
+        if (!price) {
+            const priceElement = productCard.querySelector('.ul-product-price, .price, .product-price');
+            price = priceElement ? priceElement.textContent.replace(/[₹$,]/g, '').trim() : '99.00';
+        }
+        if (!image) {
+            const imgElement = productCard.querySelector('img');
+            image = imgElement?.src || '';
+        }
+        if (!productId) {
+            productId = Date.now().toString();
+        }
 
-        // Validate selections
-        if (!selectedSize) {
-            this.showSizeSelectionModal(productId, productName, price, image);
+        console.log('Adding to cart:', { productId, productName, price, image });
+
+        // Show size and color selection modal
+        this.showSizeSelectionModal(productId, productName, price, image);
             return;
         }
 
@@ -608,6 +645,177 @@ class ShoppingCart {
 
         this.requestStockNotification(productId, productName, size, color, email);
         modal.remove();
+    }
+
+    // Handle add to wishlist button click
+    handleAddToWishlist(e) {
+        const button = e.target.closest('button[aria-label="Add to wishlist"], .add-to-wishlist');
+        const productCard = button.closest('.ul-product, .product-card, .product-details');
+        
+        if (!productCard) {
+            console.log('Product card not found for wishlist');
+            return;
+        }
+
+        // Get product details from data attributes or DOM
+        let productId = productCard.dataset.productId || button.dataset.productId;
+        let productName = productCard.dataset.productName;
+        let price = productCard.dataset.productPrice;
+        let image = productCard.dataset.productImage;
+        let category = productCard.dataset.productCategory;
+
+        // Fallback to DOM elements if data attributes not found
+        if (!productName) {
+            const titleElement = productCard.querySelector('.ul-product-title a, .product-title, .product-name, h3, h4');
+            productName = titleElement?.textContent?.trim() || 'Unknown Product';
+        }
+        if (!price) {
+            const priceElement = productCard.querySelector('.ul-product-price, .price, .product-price');
+            price = priceElement ? priceElement.textContent.replace(/[₹$,]/g, '').trim() : '99.00';
+        }
+        if (!image) {
+            const imgElement = productCard.querySelector('img');
+            image = imgElement?.src || '';
+        }
+        if (!category) {
+            const categoryElement = productCard.querySelector('.ul-product-category a, .product-category');
+            category = categoryElement?.textContent?.trim() || 'Uncategorized';
+        }
+        if (!productId) {
+            productId = Date.now().toString();
+        }
+
+        this.addToWishlist(productId, productName, price, image, category);
+    }
+
+    // Add product to wishlist
+    addToWishlist(productId, productName, price, image, category) {
+        const existingItem = this.wishlist.find(item => item.id === productId);
+        
+        if (existingItem) {
+            this.showCartNotification(`${productName} is already in your wishlist!`, 'info');
+            return;
+        }
+
+        const wishlistItem = {
+            id: productId,
+            name: productName,
+            price: parseFloat(price),
+            image: image,
+            category: category,
+            addedAt: new Date().toISOString()
+        };
+
+        this.wishlist.push(wishlistItem);
+        this.saveWishlist();
+        this.updateWishlistCount();
+        this.showCartNotification(`${productName} added to wishlist!`, 'success');
+        
+        // Add visual feedback to the button
+        const button = document.querySelector(`[data-product-id="${productId}"] button[aria-label="Add to wishlist"]`);
+        if (button) {
+            button.style.color = '#ff4757';
+            button.querySelector('i').style.color = '#ff4757';
+        }
+    }
+
+    // Remove from wishlist
+    removeFromWishlist(productId) {
+        this.wishlist = this.wishlist.filter(item => item.id !== productId);
+        this.saveWishlist();
+        this.updateWishlistCount();
+        this.updateWishlistUI();
+    }
+
+    // Save wishlist to localStorage
+    saveWishlist() {
+        localStorage.setItem('fashionWishlist', JSON.stringify(this.wishlist));
+    }
+
+    // Update wishlist count in UI
+    updateWishlistCount() {
+        const wishlistBadges = document.querySelectorAll('.wishlist-badge');
+        wishlistBadges.forEach(badge => {
+            if (this.wishlist.length > 0) {
+                badge.textContent = this.wishlist.length;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        });
+    }
+
+    // Update wishlist UI (for wishlist page)
+    updateWishlistUI() {
+        const wishlistContainer = document.getElementById('wishlist-items');
+        if (!wishlistContainer) return;
+
+        if (this.wishlist.length === 0) {
+            wishlistContainer.innerHTML = `
+                <div class="empty-wishlist text-center py-5">
+                    <i class="flaticon-heart" style="font-size: 64px; color: #ddd; margin-bottom: 20px;"></i>
+                    <h3>Your wishlist is empty</h3>
+                    <p>Add some products you love to your wishlist!</p>
+                    <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                </div>
+            `;
+            return;
+        }
+
+        const wishlistHTML = this.wishlist.map(item => `
+            <div class="wishlist-item mb-4 p-3 border rounded" data-product-id="${item.id}">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <img src="${item.image}" alt="${item.name}" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="mb-1">${item.name}</h5>
+                        <p class="text-muted mb-0">${item.category}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="price h5 text-primary">$${item.price.toFixed(2)}</span>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary add-to-cart-from-wishlist" data-product-id="${item.id}">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-danger remove-from-wishlist" data-product-id="${item.id}">
+                            <i class="flaticon-close"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        wishlistContainer.innerHTML = wishlistHTML;
+
+        // Bind wishlist-specific events
+        this.bindWishlistEvents();
+    }
+
+    // Bind wishlist page events
+    bindWishlistEvents() {
+        // Remove from wishlist buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.remove-from-wishlist')) {
+                const productId = e.target.closest('.remove-from-wishlist').dataset.productId;
+                this.removeFromWishlist(productId);
+                this.showCartNotification('Item removed from wishlist', 'success');
+            }
+        });
+
+        // Add to cart from wishlist
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.add-to-cart-from-wishlist')) {
+                const productId = e.target.closest('.add-to-cart-from-wishlist').dataset.productId;
+                const wishlistItem = this.wishlist.find(item => item.id === productId);
+                if (wishlistItem) {
+                    this.showSizeSelectionModal(wishlistItem.id, wishlistItem.name, wishlistItem.price, wishlistItem.image);
+                }
+            }
+        });
     }
 }
 
