@@ -7,7 +7,7 @@
     transition: all 0.3s ease;
 }
 
-.cart-badge, .cart-count {
+.cart-badge, .cart-count, .wishlist-badge {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -23,6 +23,11 @@
     justify-content: center;
     animation: pulse 0.3s ease-in-out;
     box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+}
+
+.wishlist-badge {
+    background: #ff4757;
+    box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
 }
 
 .cart-bounce {
