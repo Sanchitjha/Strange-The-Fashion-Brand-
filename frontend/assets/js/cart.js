@@ -5,7 +5,7 @@ class ShoppingCart {
         this.savedForLater = JSON.parse(localStorage.getItem('savedForLater')) || [];
         this.wishlist = JSON.parse(localStorage.getItem('fashionWishlist')) || [];
         this.notifications = JSON.parse(localStorage.getItem('cartNotifications')) || [];
-        this.apiBase = window.location.hostname === 'localhost' ? 'http://localhost:3001/api' : '/api';
+        this.apiBase = window.location.hostname === 'localhost' ? 'http://localhost:3002/api' : '/api';
         this.init();
     }
 
@@ -485,17 +485,6 @@ class ShoppingCart {
 
         // Show size and color selection modal
         this.showSizeSelectionModal(productId, productName, price, image);
-            return;
-        }
-
-        // Check stock availability
-        if (this.isOutOfStock(productId, selectedSize, selectedColor)) {
-            this.showStockNotificationModal(productId, productName, selectedSize, selectedColor);
-            return;
-        }
-
-        // Add to cart
-        this.addToCart(productId, productName, price, image, selectedSize, selectedColor, quantity);
     }
 
     // Handle quick add to cart
@@ -523,12 +512,12 @@ class ShoppingCart {
     // Get selected color
     getSelectedColor(container) {
         const colorSelector = container.querySelector('input[name="color"]:checked, select[name="color"], .color-selector .active');
-        return colorSelector ? (colorSelector.value || colorSelector.textContent.trim()) : 'Default';
+        return colorSelector ? (colorSelector.value || colorSelector.textContent.trim()) : 'Black';
     }
 
     // Get selected quantity
     getSelectedQuantity(container) {
-        const quantityInput = container.querySelector('input[type="number"], .quantity-input');
+        const quantityInput = container.querySelector('input[name="quantity"], .quantity-input');
         return quantityInput ? parseInt(quantityInput.value) || 1 : 1;
     }
 
