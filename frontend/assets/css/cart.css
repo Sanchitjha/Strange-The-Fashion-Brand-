@@ -25,9 +25,22 @@
     box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
 }
 
+/* Hide badges by default */
+.cart-badge, .wishlist-badge {
+    display: none !important;
+}
+
 .wishlist-badge {
     background: #ff4757;
     box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+}
+
+/* Empty wishlist icon styling */
+.empty-wishlist .flaticon-heart {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+    display: block;
 }
 
 .cart-bounce {
